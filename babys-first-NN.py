@@ -26,7 +26,7 @@ class SecretLearner(object):
         self.x = tf.placeholder(tf.float32, [2,2])
         self.y = tf.placeholder(tf.float32, [2,2])
         
-        self.hiddenLayer = tf.layers.dense(self.x, 10)
+        self.hiddenLayer = tf.layers.dense(self.x, 10, tf.nn.relu)
         self.output = tf.layers.dense(self.hiddenLayer, 2)
         
         self.loss = tf.losses.mean_squared_error(self.y, self.output)
@@ -44,7 +44,7 @@ class SecretLearner(object):
                 _, prediction, loss = self.session.run(
                     [self.training_op, self.output, self.loss],
                     {self.x: x, self.y: y})
-                if i == 99:
+                if i == 0:
                     print(x, y, prediction, loss)
     
     def testKnowledge(self, x, y):
